@@ -9,10 +9,12 @@ public class Ingrediente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_Ingrediente;
     private String nome;
+    private Integer estoque;
 
-    public Ingrediente(Integer id_Ingrediente, String nome) {
+    public Ingrediente(Integer id_Ingrediente, String nome, Integer estoque) {
         this.id_Ingrediente = id_Ingrediente;
         this.nome = nome;
+        this.estoque = estoque;
     }
 
     public Ingrediente() {
@@ -32,5 +34,13 @@ public class Ingrediente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
     }
 }
