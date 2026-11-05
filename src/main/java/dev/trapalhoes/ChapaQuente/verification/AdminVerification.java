@@ -1,31 +1,17 @@
 package dev.trapalhoes.ChapaQuente.verification;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/verificacao")
-@CrossOrigin(origins = "*")
 public class AdminVerification {
-    @Value("${admin.email}")
-    private String email;
-    @Value("${admin.senha}")
-    private String senha;
-
-    public record DadosVerificacao(
-            @NotBlank String email,
-            @NotBlank String senha
-    ){}
-
-    @PostMapping("/admin")
-    public Boolean verificarAdmin(@RequestBody @Valid DadosVerificacao dados){
-        if(dados.email.equals(email) && dados.senha.equals(senha)){
-            return true;
-        }
-        else {
-            return false;
-        }
+    @GetMapping("/admin-status")
+    public boolean adminStatus(Authentication authentication) {
+        return authentication != null && authentication.isAuthenticated()
+                && authentication.getAuthorities().stream()
+                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
     }
 }
