@@ -33,7 +33,6 @@ public class ClienteController {
         @NotBlank String nome,
         @NotBlank String senha,
         @NotBlank String email,
-        @NotBlank String cpf,
         @NotBlank String token
     ){}
 
@@ -77,7 +76,6 @@ public class ClienteController {
         cliente.setNome(dadosClientes.nome());
         cliente.setSenha(passwordConfig.passwordEncoder().encode(dadosClientes.senha()));
         cliente.setEmail(dadosClientes.email());
-        cliente.setCpf(dadosClientes.cpf());
         cliente.setPontos(0);
 
         return clienteService.save(cliente);
